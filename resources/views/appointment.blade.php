@@ -28,7 +28,7 @@
                 <div class="alert alert-success" role="alert">
                   <div class="text-center"><h4 class="alert-heading">BERHASIL!</h4></div>
                   <hr>
-                  <p>Silahkan menunggu panggilan antrian, untuk informasi antrian bisa dilihat <a href="{{route('register.pasien')}}">disini.</a></p>
+                  <p>Silahkan menunggu panggilan antrian, untuk informasi antrian bisa dilihat <a href="{{route('list.antrian')}}">disini.</a></p>
                 </div>
                 @elseif(session()->has('error'))
                 <div class="alert alert-danger" role="alert">
@@ -61,7 +61,14 @@
                     <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
                     <option value="">Pilih Dokter</option>
                     @foreach ($dokter as $dr)
-                    <option value="{{$dr->id}}">{{$dr->name}}</option>
+                        @if ($dr->username == 'dokter1')
+                            {{$stat = "disabled"}}
+                            {{$msg = "(Dokter belum datang)"}}
+                        @else
+                            {{$stat = ""}}
+                            {{$msg = ""}}
+                        @endif
+                    <option value="{{$dr->id}}" {{$stat}}>{{$dr->name}} {{$msg}}</option>
                     @endforeach
                     </select>
                     @error('user_id')

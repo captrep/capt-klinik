@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Antrian;
 class DashboardController extends Controller
 {
     /**
@@ -21,8 +21,13 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Antrian $antrian)
     {
-        return view('admin/dashboard');
+        $tes = Antrian::all();
+        
+        $antrian = Antrian::paginate(5);
+        return view('admin/dashboard', compact('antrian'));
     }
+
+    
 }

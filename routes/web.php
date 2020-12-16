@@ -27,15 +27,16 @@ Route::get('appointment', function(){
 })->name('appointment');
 Route::post('appointment/store', 'AntrianController@store')->name('store.antrian');
 
+Route::get('antrian', 'AntrianController@index')->name('list.antrian');
+
 Auth::routes([
     'register' => false,
     'reset' => false,
     'verify' => false
 ]);
 
-
-
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
 
 Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('dokter', 'Admin\DokterController@index')->name('dokter');

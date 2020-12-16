@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Antrian extends Model
 {
-    protected $table = 'pasien';
+    protected $table = 'antrian';
     protected $fillable = [
-        'noktp', 'status', 'user_id',
+        'noktp', 'status', 'user_id', 'pasien_id',
     ];
 
-    public function antrian()
+    public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pasien()
+    {
+        return $this->belongsTo(Pasien::class);
     }
 }
