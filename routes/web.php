@@ -21,7 +21,11 @@ Route::get('/', function () {
 Route::get('register', 'PasienController@register')->name('register.pasien');
 Route::post('register/store', 'PasienController@storelanding')->name('storelanding.pasien');
 
-Route::post('/store', 'AntrianController@store')->name('store.antrian');
+Route::get('appointment', function(){
+    $dokter = User::where('role','dokter')->get();
+    return view('appointment',compact('dokter'));
+})->name('appointment');
+Route::post('appointment/store', 'AntrianController@store')->name('store.antrian');
 
 Auth::routes([
     'register' => false,

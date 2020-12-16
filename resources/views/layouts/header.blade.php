@@ -52,7 +52,7 @@
         </ul>
       </nav><!-- .nav-menu -->
 
-      <a href="#appointment" class="appointment-btn scrollto">Make an Appointment</a>
+      <a href="{{route('appointment')}}" class="appointment-btn scrollto">Make an Appointment</a>
 
     </div>
   </header><!-- End Header -->

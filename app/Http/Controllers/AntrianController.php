@@ -26,6 +26,6 @@ class AntrianController extends Controller
         }else{
             session()->flash('success');
         }
-        return redirect(route('welcome'));
+        return redirect(route('appointment'));
     }
 }

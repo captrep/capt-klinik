@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-@section('title','Klinik Apa Ya?')
+@section('title','Welcome')
 @section('content')
 <section id="hero" class="d-flex align-items-center">
   <div class="container">
@@ -170,56 +170,7 @@
   </section><!-- End Services Section -->
 
   <!-- ======= Appointment Section ======= -->
-  <section id="appointment" class="appointment section-bg">
-    <div class="container">
-
-      <div class="section-title">
-        @if (session()->has('error'))
-        <div class="alert alert-warning" role="alert">
-          <h4 class="alert-heading">Pendaftaran berhasil dilakukan!</h4>
-          <p>Silahkan melakukan pembayaran pendaftaran sebesar Rp. 5.000 melalui staff administrasi agar status pasien menjadi aktif dan dapat membuat antrian</p>
-        </div>
-        @endif
-        <h2>Buat Janji Dengan Dokter</h2>
-      <p>Apabila anda belum mendaftar di klinik ini, maka anda harus mendaftar terlebih dahulu <a href="{{route('register.pasien')}}">disini</a></p>
-      </div>
-
-      <form action="{{route('store.antrian')}}"  method="post">
-        @csrf
-          <div class="form-row justify-content-md-center">
-              <div class="col-md-4 form-group">
-                  <input type="text" class="form-control @error('noktp') is-invalid @enderror" name="noktp" id="noktp" value="{{old('noktp')}}" placeholder="Isi dengan nomor ktp pasien">
-                  @error('noktp')
-                      <div class="invalid-feedback">
-                          {{$message}}
-                      </div>
-                  @enderror
-              </div>
-              <div class="col-md-4 form-group">
-                <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
-                <option value="">Pilih Dokter</option>
-                @foreach ($dokter as $dr)
-                <option value="{{$dr->id}}">{{$dr->name}}</option>
-                @endforeach
-                </select>
-                @error('user_id')
-                    <div class="invalid-feedback">
-                        {{$message}}
-                    </div>
-                @enderror
-            </div>
-          </div>
-          <div class="text-center">
-            <div class="row justify-content-md-center">
-              <div class="col-md-8">
-                <button type="submit" class="btn btn-primary btn-block">Buat Janji</button>
-              </div>
-            </div>
-          </div>
-    </form>
-
-    </div>
-  </section><!-- End Appointment Section -->
+  <!-- End Appointment Section -->
 
   <!-- ======= Departments Section ======= -->
 

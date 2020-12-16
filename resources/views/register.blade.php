@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-@section('title','Klinik Apa Ya?')
+@section('title','Register')
 @section('content')
   <main id="main">
 
