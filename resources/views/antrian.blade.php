@@ -27,12 +27,54 @@
             <p>Apabila anda belum mendaftar di klinik ini, maka anda harus mendaftar terlebih dahulu <a href="{{route('register.pasien')}}">disini</a></p>
           </div>
       </div>
+    </section>
+
+      <section id="counts" class="counts">
+        <div class="container">
     
+          <div class="row">
+    
+            <div class="col-lg-3 col-md-6">
+              <div class="count-box">
+                <i class="icofont-doctor-alt"></i>
+                <span data-toggle="counter-up">85</span>
+                <p>Doctors</p>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+              <div class="count-box">
+                <i class="icofont-patient-bed"></i>
+                <span data-toggle="counter-up">18</span>
+                <p>Departments</p>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+              <div class="count-box">
+                <i class="icofont-laboratory"></i>
+                <span data-toggle="counter-up">8</span>
+                <p>Research Labs</p>
+              </div>
+            </div>
+    
+            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+              <div class="count-box">
+                <i class="icofont-award"></i>
+                <span data-toggle="counter-up">150</span>
+                <p>Awards</p>
+              </div>
+            </div>
+    
+          </div>
+    
+        </div>
+      </section><!-- End Counts Section -->
 
+    <section class="appointment inner-page">
     <div class="container">
-
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
           <div class="card">
             <div class="card-header">
               <h5>List Antrian Belum Dipanggil</h5>
