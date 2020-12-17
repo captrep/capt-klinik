@@ -26,12 +26,12 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="{{route('welcome')}}">Home</a></li>
-          <li><a href="{{route('register.pasien')}}">Pendaftaran</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#doctors">Doctors</a></li>
-          <li><a href="{{route('list.antrian')}}">Antrian</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('welcome')}}">Home</a></li>
+          <li class="{{ request()->is('register') ? 'active' : '' }}"><a href="{{route('register.pasien')}}">Pendaftaran</a></li>
+          <li><a href="{{ request()->is('/') ? '#services' : '/#services' }}">Services</a></li>
+          <li><a href="{{ request()->is('/') ? '#doctors' : '/#doctors' }}">Doctors</a></li>
+          <li><a href="{{ request()->is('/') ? '#doctors' : '/#doctors' }}">Antrian</a></li>
+          <li><a href="{{ request()->is('/') ? '#contact' : '/#contact' }}">Contact</a></li>
 
         </ul>
       </nav><!-- .nav-menu -->

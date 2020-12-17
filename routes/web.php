@@ -27,7 +27,7 @@ Route::get('appointment', function(){
 })->name('appointment');
 Route::post('appointment/store', 'AntrianController@store')->name('store.antrian');
 
-Route::get('antrian', 'AntrianController@index')->name('list.antrian');
+Route::get('antrian/{user:username}', 'AntrianController@index')->name('list.antrian');
 
 Auth::routes([
     'register' => false,

@@ -43,7 +43,7 @@
                       </td>
                       <td>
                         <a href="{{route('edit.dokter',$dr->id)}}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i></a>
-                        <a href="" data-id="{{ $dr->id }}" class="btn btn-icon icon-left btn-danger alert-confirm"><i class="fas fa-times"></i>
+                        <a href="#" data-id="{{ $dr->id }}" class="btn btn-icon icon-left btn-danger alert-confirm"><i class="fas fa-times"></i>
                           <form action="{{route('delete.dokter', $dr->id)}}" id="delete{{ $dr->id }}" method="POST">
                             @csrf
                             @method('delete')

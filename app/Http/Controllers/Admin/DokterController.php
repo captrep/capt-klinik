@@ -12,6 +12,7 @@ class DokterController extends Controller
     public function index(User $user)
     {
         $dokter = User::where('role','dokter')->paginate(5);
+   
         return view('admin/dokter/list', compact('dokter'));
     }
 
@@ -79,11 +80,8 @@ class DokterController extends Controller
 
     public function destroy($id)
     {
-        $fotodokter = User::where('id',$id)->pluck('foto');
-        foreach ($fotodokter as $foto) {
-            $foto = $foto;
-        }
-        \Storage::delete($foto);
+        $fotodokter = User::find($id)->foto;
+        \Storage::delete($fotodokter);
         User::where('id',$id)->delete();
         return redirect()->back()->withSuccess('Data Berhasil Dihapus!');
     }

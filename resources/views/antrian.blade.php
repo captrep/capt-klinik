@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-@section('title','Antrian &mdash; Klinik') 
+@section('title','Antrian') 
 @section('content')
   <main id="main">
 
@@ -23,15 +23,71 @@
     <section class="appointment inner-page" id="appointment">
       <div class="container">
         <div class="section-title">
-            <h2>Daftar Antrian</h2>
+            <h2>Daftar Antrian Dokter</h2>
             <p>Apabila anda belum mendaftar di klinik ini, maka anda harus mendaftar terlebih dahulu <a href="{{route('register.pasien')}}">disini</a></p>
           </div>
+      </div>
     
 
+    <div class="container">
 
-          
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>List Antrian Belum Dipanggil</h5>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($antrianMenunggu as $key  => $antrian)
+                  <tr>
+                    <th scope="row">{{$antrianMenunggu->firstItem()+$key}}</th>
+                    <td>{{$antrian->pasien->nama}}</td>
+                    <td><span class="badge badge-primary">{{$antrian->status}}</span></td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5>List Antrian Yang Dilewati</h5>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($antrianDilewati as $key  => $antrian)
+                  <tr>
+                    <th scope="row">{{$antrianDilewati->firstItem()+$key}}</th>
+                    <td>{{$antrian->pasien->nama}}</td>
+                    <td><span class="badge badge-warning">{{$antrian->status}}</span></td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
-
+    </div>
+  </section>
   </main><!-- End #main -->
   @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @extends('layouts.header')
 @extends('layouts.footer')
-@section('title','Appointment &mdash; Klinik') 
+@section('title','Appointment') 
 @section('content')
   <main id="main">
 
@@ -28,13 +28,25 @@
                 <div class="alert alert-success" role="alert">
                   <div class="text-center"><h4 class="alert-heading">BERHASIL!</h4></div>
                   <hr>
-                  <p>Silahkan menunggu panggilan antrian, untuk informasi antrian bisa dilihat <a href="{{route('list.antrian')}}">disini.</a></p>
+                  <p>Silahkan menunggu panggilan antrian, untuk informasi antrian bisa dilihat di halaman awal.</p>
                 </div>
                 @elseif(session()->has('error'))
                 <div class="alert alert-danger" role="alert">
-                  <div class="text-center"><h4 class="alert-heading">GAGAL</h4></div>
+                  <div class="text-center"><h4 class="alert-heading">GAGAL!</h4></div>
                   <hr>
                   <p>Sistem kami tidak dapat menemukan data anda, pastikan anda telah mendaftar sebagai pasien. Apabila belum mendaftar silahkan mendaftar terlebih dahulu <a href="{{route('register.pasien')}}">disini</a> </p>
+                </div>
+                @elseif(session()->has('warning'))
+                <div class="alert alert-warning" role="alert">
+                  <div class="text-center"><h4 class="alert-heading">GAGAL!</h4></div>
+                  <hr>
+                  <p>Silahkan melakukan pembayaran registrasi awal ke staff administrasi agar bisa membuat janji dengan dokter.</p>
+                </div>    
+                @elseif(session()->has('duplicate'))
+                <div class="alert alert-warning" role="alert">
+                  <div class="text-center"><h4 class="alert-heading">DUPLICATE!</h4></div>
+                  <hr>
+                  <p>Anda telah membuat janji dengan dokter, silahkan cek antrian anda dihalaman awal.</p>
                 </div>
                 @endif
               </div>

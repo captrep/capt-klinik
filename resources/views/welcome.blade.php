@@ -170,8 +170,6 @@
   </section><!-- End Services Section -->
 
   <!-- ======= Appointment Section ======= -->
-  <!-- End Appointment Section -->
-
   <!-- ======= Departments Section ======= -->
 
   <!-- ======= Doctors Section ======= -->
@@ -193,37 +191,13 @@
                 <h4>{{$dr->name}}</h4>
                 <span>{{$dr->jabatan}}</span>
                 <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                <div class="social">
-                  <a href=""><i class="ri-twitter-fill"></i></a>
-                  <a href=""><i class="ri-facebook-fill"></i></a>
-                  <a href=""><i class="ri-instagram-fill"></i></a>
-                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                </div>
+                <form action=""></form>
+                <a href="{{route('list.antrian',$dr->username)}}" class="btn btn-primary btn-block">Lihat antrian</a>
+                <a href="{{route('appointment')}}" class="btn btn-primary btn-block">Buat janji</a>
               </div>
             </div>
           </div>
         @endforeach
-
-
-
-
-        {{-- <div class="col-lg-6 mt-4">
-          <div class="member d-flex align-items-start">
-            <div class="pic"><img src="{{asset('landing')}}/assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
-            <div class="member-info">
-              <h4>Amanda Jepson</h4>
-              <span>Neurosurgeon</span>
-              <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-              <div class="social">
-                <a href=""><i class="ri-twitter-fill"></i></a>
-                <a href=""><i class="ri-facebook-fill"></i></a>
-                <a href=""><i class="ri-instagram-fill"></i></a>
-                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-              </div>
-            </div>
-          </div>
-        </div> --}}
-
       </div>
 
     </div>
