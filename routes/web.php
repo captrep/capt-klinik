@@ -36,7 +36,10 @@ Auth::routes([
 ]);
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-
+Route::post('{antrian:id}/panggil','AntrianController@panggil')->name('panggil.antrian');
+Route::post('{antrian:id}/periksa','AntrianController@periksa')->name('periksa.antrian');
+Route::post('{antrian:id}/lewati','AntrianController@lewati')->name('lewati.antrian');
+Route::post('{antrian:id}/selesai','AntrianController@selesai')->name('selesai.antrian');
 
 Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('dokter', 'Admin\DokterController@index')->name('dokter');

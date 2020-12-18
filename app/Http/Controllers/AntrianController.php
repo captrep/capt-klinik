@@ -14,7 +14,9 @@ class AntrianController extends Controller
         $id = User::where('username',$username)->pluck('id');
         $antrianMenunggu = Antrian::where([['user_id',$id],['status','Menunggu']])->orderBy('created_at','ASC')->paginate(5);
         $antrianDilewati = Antrian::where([['user_id',$id],['status','Dilewati']])->paginate(5);
-        return view('antrian',compact('antrianMenunggu','antrianDilewati'));
+        $antrianDipanggil = Antrian::where('status','Dipanggil')->first();
+        $antrianDiperiksa = Antrian::where('status','Diperiksa')->first();
+        return view('antrian',compact('antrianMenunggu','antrianDilewati','antrianDipanggil','antrianDiperiksa'));
     }
     public function store(Request $request)
     {        
@@ -41,6 +43,38 @@ class AntrianController extends Controller
             ]);
         }
         return redirect(route('appointment'));
+    }
+
+    public function panggil($id)
+    {
+        $antrian = Antrian::find($id);
+        $antrian->status = 'Dipanggil';
+        $antrian->save();
+        return redirect(route('dashboard'));
+    }
+
+    public function periksa($id)
+    {
+        $antrian = Antrian::find($id);
+        $antrian->status = 'Diperiksa';
+        $antrian->save();
+        return redirect(route('dashboard'));
+    }
+
+    public function lewati($id)
+    {
+        $antrian = Antrian::find($id);
+        $antrian->status = 'Dilewati';
+        $antrian->save();
+        return redirect(route('dashboard'));
+    }
+
+    public function selesai($id)
+    {
+        $antrian = Antrian::find($id);
+        $antrian->status = 'Selesai';
+        $antrian->save();
+        return redirect(route('dashboard'));
     }
 
 }

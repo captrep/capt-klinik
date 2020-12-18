@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Antrian;
+use Illuminate\Support\Facades\Auth;
+
 class DashboardController extends Controller
 {
     /**
@@ -23,10 +25,12 @@ class DashboardController extends Controller
      */
     public function index(Antrian $antrian)
     {
-        $tes = Antrian::all();
-        
-        $antrian = Antrian::paginate(5);
-        return view('admin/dashboard', compact('antrian'));
+        $id = Auth::user()->id;
+        $antrianAll = Antrian::paginate(5);
+        $antrianMenunggu = Antrian::where([['user_id',$id],['status','Menunggu']])->paginate(5);
+        $antrianDilewati = Antrian::where([['user_id',$id],['status','Dilewati']])->paginate(5);
+        $antrianAction = Antrian::where('status','Dipanggil')->get();
+        return view('admin/dashboard', compact('antrianAll','antrianMenunggu','antrianDilewati','antrianAction'));
     }
 
     
