@@ -12,11 +12,12 @@ class AntrianController extends Controller
     public function index($username)
     {
         $id = User::where('username',$username)->pluck('id');
-        $antrianMenunggu = Antrian::where([['user_id',$id],['status','Menunggu']])->orderBy('created_at','ASC')->paginate(5);
-        $antrianDilewati = Antrian::where([['user_id',$id],['status','Dilewati']])->paginate(5);
-        $antrianDipanggil = Antrian::where('status','Dipanggil')->first();
-        $antrianDiperiksa = Antrian::where('status','Diperiksa')->first();
-        return view('antrian',compact('antrianMenunggu','antrianDilewati','antrianDipanggil','antrianDiperiksa'));
+        $antrianMenunggu = Antrian::where([['user_id',$id],['status','Menunggu']])->orderBy('created_at','ASC')->paginate(10);
+        $antrianDilewati = Antrian::where([['user_id',$id],['status','Dilewati']])->paginate(10);
+        $antrianDipanggil = Antrian::where([['user_id',$id],['status','Dipanggil']])->first();
+        $antrianDiperiksa = Antrian::where([['user_id',$id],['status','Diperiksa']])->first();
+        $antrianSelesai = Antrian::where([['user_id',$id],['status','Selesai']])->paginate(10);
+        return view('antrian',compact('antrianMenunggu','antrianDilewati','antrianDipanggil','antrianDiperiksa', 'antrianSelesai'));
     }
     public function store(Request $request)
     {        
@@ -45,9 +46,19 @@ class AntrianController extends Controller
         return redirect(route('appointment'));
     }
 
-    public function panggil($id)
+    public function panggil($dokter)
     {
-        $antrian = Antrian::find($id);
+        $antrianMenunggu = Antrian::where([['user_id',$dokter],['status','Menunggu']])->orderBy('created_at','ASC')->get();
+        $antrian = $antrianMenunggu->first();
+        $antrian->status = 'Dipanggil';
+        $antrian->save();
+        return redirect(route('dashboard'));
+    }
+
+    public function panggilSkipped($dokter)
+    {
+        $antrianSkipped = Antrian::where([['user_id',$dokter],['status','Dilewati']])->orderBy('created_at','ASC')->get();
+        $antrian = $antrianSkipped->first();
         $antrian->status = 'Dipanggil';
         $antrian->save();
         return redirect(route('dashboard'));

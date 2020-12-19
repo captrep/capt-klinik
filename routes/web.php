@@ -18,15 +18,18 @@ Route::get('/', function () {
     return view('welcome',compact('dokter'));
 }) ->name('welcome');
 
+// register calon pasien (user side)
 Route::get('register', 'PasienController@register')->name('register.pasien');
 Route::post('register/store', 'PasienController@storelanding')->name('storelanding.pasien');
 
+// buat antrian (pasien)
 Route::get('appointment', function(){
     $dokter = User::where('role','dokter')->get();
     return view('appointment',compact('dokter'));
 })->name('appointment');
 Route::post('appointment/store', 'AntrianController@store')->name('store.antrian');
 
+// antrian (pasien)
 Route::get('antrian/{user:username}', 'AntrianController@index')->name('list.antrian');
 
 Auth::routes([
@@ -36,7 +39,10 @@ Auth::routes([
 ]);
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-Route::post('{antrian:id}/panggil','AntrianController@panggil')->name('panggil.antrian');
+
+// antrian (dokter)
+Route::post('{user:id}/panggil','AntrianController@panggil')->name('panggil.antrian');
+Route::post('{user:id}/panggil/skipped','AntrianController@panggilSkipped')->name('panggil.skipped.antrian');
 Route::post('{antrian:id}/periksa','AntrianController@periksa')->name('periksa.antrian');
 Route::post('{antrian:id}/lewati','AntrianController@lewati')->name('lewati.antrian');
 Route::post('{antrian:id}/selesai','AntrianController@selesai')->name('selesai.antrian');

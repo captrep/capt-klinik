@@ -52,7 +52,7 @@
             </div>
             <div class="card-body">
               <div class="text-center">
-                <h5><span class="badge badge-info">Dadang santoso</span></h5>
+                <h5><span class="badge badge-info">{{$antrianDiperiksa == null ? '----' : $antrianDiperiksa->pasien->nama}}</span></h5>
               </div>
             </div>
           </div>
@@ -128,11 +128,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($antrianDilewati as $key  => $antrian)
+                  @foreach ($antrianSelesai as $key  => $antrian)
                   <tr>
-                    <th scope="row">{{$antrianDilewati->firstItem()+$key}}</th>
+                    <th scope="row">{{$antrianSelesai->firstItem()+$key}}</th>
                     <td>{{$antrian->pasien->nama}}</td>
-                    <td><span class="badge badge-warning">{{$antrian->status}}</span></td>
+                    <td><span class="badge badge-success">{{$antrian->status}}</span></td>
                   </tr>
                   @endforeach
                 </tbody>
