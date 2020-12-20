@@ -18,6 +18,16 @@
               <div class="card">
                 <div class="card-header">
                   <h4>Simple Table</h4>
+                  <div class="card-header-form">
+                    <form action="{{route('pasien')}}" method="get">
+                      <div class="input-group">
+                        <input type="text" value="{{Request::get('search')}}" name="search" class="form-control" placeholder="Search by name">
+                        <div class="input-group-btn">
+                          <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               <div class="card-body p-0">
                 <div class="table-responsive">
@@ -46,13 +56,17 @@
                         <td><div class="badge badge-warning">{{$pas->status}}</div></td> 
                       @endif
                       <td>
+                        @if (Auth::user()->role == 'dokter')
+                        <a href="{{route('riwayat.pasien',$pas->id)}}" class="btn btn-icon icon-left btn-primary"><i class="far fa-history"></i>Lihat Riwayat</a>
+                        @else
                         <a href="{{route('edit.pasien',$pas->id)}}" class="btn btn-icon icon-left btn-primary"><i class="far fa-edit"></i></a>
                         <a href="#" data-id="{{ $pas->id }}" class="btn btn-icon icon-left btn-danger alert-confirm"><i class="fas fa-times"></i>
                           <form action="{{route('delete.pasien', $pas->id)}}" id="delete{{ $pas->id }}" method="POST">
                             @csrf
                             @method('delete')
                           </form>
-                        </a>
+                        </a>                            
+                        @endif
                       </td>
                     </tr>
                     @endforeach

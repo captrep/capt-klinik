@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::delete('staff/{user:id}/delete', 'Admin\StaffController@destroy')->name('delete.staff');
 });
 
-Route::group(['middleware' => ['auth','cekrole:admin,staff']], function () {
+Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function () {
     Route::get('pasien', 'PasienController@index')->name('pasien');
     Route::get('pasien/create', 'PasienController@create')->name('create.pasien');
     Route::post('pasien/store', 'PasienController@store')->name('store.pasien');
@@ -77,5 +77,8 @@ Route::group(['middleware' => ['auth','cekrole:admin,staff']], function () {
     Route::patch('pasien/{pasien:id}/edit', 'PasienController@update')->name('update.pasien');
     Route::delete('pasien/{pasien:id}/delete', 'PasienController@destroy')->name('delete.pasien');
     Route::post('pasien/{pasien:id}/konfirmasi', 'PasienController@konfirmasi')->name('konfirmasi.pasien');
+    Route::get('pasien/{pasien:id}/riwayat', 'RiwayatController@index') ->name('riwayat.pasien');
+    Route::get('pasien/riwayat/create/{pasien:id}', 'RiwayatController@create')->name('create.riwayat.pasien');
+    Route::post('pasien/riwayat/store', 'RiwayatController@store')->name('store.riwayat.pasien');
 });
 

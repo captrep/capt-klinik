@@ -11,4 +11,9 @@ class Pasien extends Model
         'nama', 'umur', 'noktp', 'jenkel', 'alamat', 'nohp', 'status',
     ];
 
+    public function riwayat()
+    {
+        return $this->hasMany(Riwayat::class);
+    }
+
 }

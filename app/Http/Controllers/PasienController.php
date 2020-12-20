@@ -7,9 +7,21 @@ use App\Pasien;
 
 class PasienController extends Controller
 {
-    public function index(Pasien $pasien)
+    public function index(Pasien $pasien, Request $request)
     {
-        $pasien = Pasien::orderBy('created_at','DESC')->paginate(10);
+        $keyword = $request->get('search');
+        if ($keyword) {   
+            $pasien = Pasien::where('nama', 'like', '%'.$keyword.'%')->orderBy('created_at','DESC')->paginate(5);
+        }else{
+            $pasien = Pasien::orderBy('created_at','DESC')->paginate(5);
+        }
+        return view('admin/pasien/list', compact('pasien'));
+    }
+
+    public function search(Request $request)
+    {
+        
+        
         return view('admin/pasien/list', compact('pasien'));
     }
 
