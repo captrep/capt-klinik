@@ -118,10 +118,30 @@
       @elseif(Auth::user()->role == 'dokter')
       <div class="section-header">
         <h1>Dashboard</h1>
-        <div class="section-header-breadcrumb">
-          <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary">Buka Praktek</button>
-            <button type="button" class="btn btn-danger">Tutup Praktek</button>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="hero text-white hero-bg-image hero-bg-parallax" style="background-image: url('{{asset('admin/assets/img/unsplash/hero-bg.jpg')}}');">
+            <div class="hero-inner">
+              <h2>Welcome, dr.{{Auth::user()->name}}!</h2>
+              @if (Auth::user()->status == 'Buka')
+              <p class="lead">Saat ini praktek sedang dibuka, silahkan tutup praktek apabila duitnya udh banyak.</p>
+              <div class="mt-4">
+                <form action="{{route('tutup.praktek')}}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn btn-outline-black btn-lg btn-icon icon-left"><i class="fa fa-power-off"></i> Tutup Praktek</button> 
+                </form>
+               </div>
+               @elseif (Auth::user()->status == 'Tutup')
+               <p class="lead">Saat ini praktek belum dibuka, silahkan buka praktek agar dapet duit.</p>
+               <div class="mt-4">
+                 <form action="{{route('buka.praktek')}}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn btn-outline-black btn-lg btn-icon icon-left"><i class="fa fa-check-square"></i> Buka Praktek</button> 
+                 </form>
+                </div>
+                @endif
+            </div>
           </div>
         </div>
       </div>
@@ -145,11 +165,10 @@
                   </tr>          
                   @else        
                   <tr>
-                    <td>xxxxxxxxxxx</td>
-                    <td>xxxxxxxxxxx</td>
+                    <td></td>
+                    <td></td>
                   </tr>          
                   @endif
-
                 </table>
               </div>
             </div>
@@ -164,6 +183,10 @@
               @if ($antrianAction != null)
                 @if ($antrianAction->status == 'Diperiksa')
                     {{-- ilangin button periksa + lewati --}}
+                    <form action="{{route('selesai.antrian', $antrianAction->id)}}" method="POST">
+                      @csrf
+                      <button type="submit" class="btn btn-success btn-block">Selesai</button>
+                    </form>
                 @else
                   <form action="{{route('periksa.antrian', $antrianAction->id)}}" method="POST">
                     @csrf
@@ -174,19 +197,33 @@
                     <button type="submit" class="btn btn-warning btn-block mb-1">Lewati</button>
                   </form>
                 @endif
-              <form action="{{route('selesai.antrian', $antrianAction->id)}}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success btn-block">Selesai</button>
-              </form>
-              @else 
-              <form action="{{route('panggil.antrian', Auth::user()->id)}}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-info btn-block mb-1">Panggil Waiting</button>
-              </form>
-              <form action="{{route('panggil.skipped.antrian', Auth::user()->id)}}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-info btn-block">Panggil Skipped</button>
-              </form>
+              @else
+                @if($antrianMenunggu->isEmpty()) 
+                    <button type="submit" class="btn btn-info btn-block btn-progress mb-1">Panggil Waiting</button>
+                @else
+                  <form action="{{route('panggil.antrian', Auth::user()->id)}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-info btn-block mb-1">Panggil Waiting</button>
+                  </form>
+                @endif
+                @if($antrianDilewati->isEmpty())
+                    <button type="submit" class="btn btn-info btn-block btn-progress mb-1">Panggil Skipped</button>
+                @else
+                  <form action="{{route('panggil.skipped.antrian', Auth::user()->id)}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-info btn-block mb-1">Panggil Skipped</button>
+                  </form>
+                @endif
+                @if ($antrianMenunggu->isNotEmpty() && $antrianDilewati->isNotEmpty())
+                  <button type="submit" class="btn btn-danger btn-block btn-progress">Hapus Antrian</button>
+                @elseif ($antrianMenunggu->isEmpty() && $antrianDilewati->isEmpty() && $antrianSelesai->isEmpty())
+                <button type="submit" class="btn btn-danger btn-block btn-progress">Antrian Kosong</button>
+                @elseif ($antrianMenunggu->isEmpty() && $antrianDilewati->isEmpty())
+                <form action="{{route('hapus.antrian', Auth::user()->id)}}" method="POST">
+                  @csrf
+                  <button type="submit" class="btn btn-danger btn-block">Hapus Antrian</button>
+                </form>
+                @endif
               @endif
             </div>
           </div>
@@ -277,21 +314,82 @@
                     <th width="30%" style="text-align: center">Nama Pasien</th>
                     <th width="10%">Status</th>
                   </tr>
-                  @if ($antrianSelesai->isNotEmpty())
                   @foreach ($antrianSelesai as $key => $antrian)
                   <tr>
                     <td>{{$antrian->pasien->nama}}</td>
                     <td><div class="badge badge-success">{{$antrian->status}}</div></td>
                   </tr>
                   @endforeach
-                  @else
-                  <tr>
-                    <td>xxxxxxxxxxx</td>
-                    <td>xxxxxxxxxxx</td>
-                  </tr>
-                  @endif
                 </table>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      @elseif(Auth::user()->role == 'staff')
+      <div class="section-header">
+        <h1>Dashboard</h1>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="hero text-white hero-bg-image hero-bg-parallax" style="background-image: url('{{asset('admin/assets/img/unsplash/andre-benz-1214056-unsplash.jpg')}}');">
+            <div class="hero-inner">
+              <h2>Welcome, {{Auth::user()->name}}!</h2>
+              <p class="lead">Ayo semangat kerja biar bisa naik haji.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>Simple Table</h4>
+              </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-striped table-md">
+                  <tr>
+                    <th>#</th>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>KTP</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Handphone</th>
+                    <th>Status</th>
+                    <th style="text-align: center">Action</th>
+                  </tr>
+                  @foreach ($pasien as $key => $pas)
+                  <tr>
+                    <td>{{$pasien->firstItem()+$key}}</td>
+                    <td>{{$pas->nama}}</td>
+                    <td>{{$pas->umur}}</td>
+                    <td>{{$pas->noktp}}</td>
+                    <td>{{$pas->jenkel}}</td>
+                    <td>{{$pas->nohp}}</td>
+                    @if($pas->status == 'Aktif')
+                      <td><div class="badge badge-success">{{$pas->status}}</div></td>
+                    @else 
+                      <td><div class="badge badge-warning">{{$pas->status}}</div></td> 
+                    @endif
+                    <td>
+                      <form action="{{route('konfirmasi.pasien',$pas->id)}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-icon btn-block icon-left btn-primary"><i class="far fa-check-square"></i>Konfirmasi Aktif</button>
+                      </form>
+                    </td>
+                  </tr>
+                  @endforeach
+                  
+                </table>
+              </div>
+            </div>
+            <div class="card-footer text-right">
+              <nav class="d-inline-block">
+                <ul class="pagination mb-0">
+                  {{$pasien->links()}}
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

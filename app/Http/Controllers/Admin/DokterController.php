@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DokterController extends Controller
 {
     public function index(User $user)
     {
         $dokter = User::where('role','dokter')->paginate(5);
-   
         return view('admin/dokter/list', compact('dokter'));
     }
 

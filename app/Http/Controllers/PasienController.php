@@ -9,7 +9,7 @@ class PasienController extends Controller
 {
     public function index(Pasien $pasien)
     {
-        $pasien = Pasien::orderBy('created_at','DESC')->paginate(7);
+        $pasien = Pasien::orderBy('created_at','DESC')->paginate(10);
         return view('admin/pasien/list', compact('pasien'));
     }
 
@@ -98,5 +98,13 @@ class PasienController extends Controller
         
         session()->flash('success');
         return redirect(route('register.pasien'))->withSuccess('Data Berhasil Diubah!');
+    }
+
+    public function konfirmasi($pasien)
+    {
+        $pasien = Pasien::find($pasien);
+        $pasien->status = 'Aktif';
+        $pasien->save();
+        return redirect(route('dashboard'))->withSuccess('Pasien berhasil dikonfirmasi');
     }
 }

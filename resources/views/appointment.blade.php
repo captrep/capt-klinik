@@ -73,14 +73,11 @@
                     <select name="user_id" id="user_id" class="form-control @error('user_id') is-invalid @enderror">
                     <option value="">Pilih Dokter</option>
                     @foreach ($dokter as $dr)
-                        @if ($dr->username == 'dokter1')
-                            {{$stat = "disabled"}}
-                            {{$msg = "(Dokter belum datang)"}}
-                        @else
-                            {{$stat = ""}}
-                            {{$msg = ""}}
-                        @endif
-                    <option value="{{$dr->id}}" {{$stat}}>{{$dr->name}} {{$msg}}</option>
+                      @if ($dr->status == 'Tutup')
+                      <option value="{{$dr->id}}" disabled>{{$dr->name}} *Praktek tutup</option>
+                      @elseif ($dr->status == 'Buka')
+                      <option value="{{$dr->id}}">{{$dr->name}}</option>
+                      @endif
                     @endforeach
                     </select>
                     @error('user_id')

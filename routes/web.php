@@ -46,6 +46,12 @@ Route::post('{user:id}/panggil/skipped','AntrianController@panggilSkipped')->nam
 Route::post('{antrian:id}/periksa','AntrianController@periksa')->name('periksa.antrian');
 Route::post('{antrian:id}/lewati','AntrianController@lewati')->name('lewati.antrian');
 Route::post('{antrian:id}/selesai','AntrianController@selesai')->name('selesai.antrian');
+Route::post('{user:id}/hapus', 'AntrianController@hapusAntrian')->name('hapus.antrian');
+
+// Buka/tutup praktek
+Route::post('praktek/buka','DashboardController@bukaPraktek')->name('buka.praktek');
+Route::post('praktek/tutup', 'DashboardController@tutupPraktek')->name('tutup.praktek');
+
 
 Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('dokter', 'Admin\DokterController@index')->name('dokter');
@@ -70,5 +76,6 @@ Route::group(['middleware' => ['auth','cekrole:admin,staff']], function () {
     Route::get('pasien/{pasien:id}/edit', 'PasienController@edit')->name('edit.pasien');
     Route::patch('pasien/{pasien:id}/edit', 'PasienController@update')->name('update.pasien');
     Route::delete('pasien/{pasien:id}/delete', 'PasienController@destroy')->name('delete.pasien');
+    Route::post('pasien/{pasien:id}/konfirmasi', 'PasienController@konfirmasi')->name('konfirmasi.pasien');
 });
 

@@ -87,5 +87,11 @@ class AntrianController extends Controller
         $antrian->save();
         return redirect(route('dashboard'));
     }
+    
+    public function hapusAntrian($dokter)
+    {
+        Antrian::where('user_id',$dokter)->delete();
+        return redirect()->back()->withSuccess('Antrian berhasil dikosongkan');
+    }
 
 }
