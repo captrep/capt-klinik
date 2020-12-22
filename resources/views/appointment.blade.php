@@ -74,7 +74,7 @@
                     <option value="">Pilih Dokter</option>
                     @foreach ($dokter as $dr)
                       @if ($dr->status == 'Tutup')
-                      <option value="{{$dr->id}}" disabled>{{$dr->name}} *Praktek tutup</option>
+                      <option value="{{$dr->id}}" class="badge badge-danger" disabled>{{$dr->name}} *Praktek tutup</option>
                       @elseif ($dr->status == 'Buka')
                       <option value="{{$dr->id}}">{{$dr->name}}</option>
                       @endif

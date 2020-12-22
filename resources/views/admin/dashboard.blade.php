@@ -18,10 +18,10 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>Total Admin</h4>
+                <h4>Total Dokter</h4>
               </div>
               <div class="card-body">
-               2
+                {{$admin['totalDokter']}}
               </div>
             </div>
           </div>
@@ -33,10 +33,10 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>News</h4>
+                <h4>Total<br>Staff</h4>
               </div>
               <div class="card-body">
-                42
+                {{$admin['totalStaff']}}
               </div>
             </div>
           </div>
@@ -48,10 +48,10 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4></h4>
+                <h4>Total Pasien</h4>
               </div>
               <div class="card-body">
-                1,201
+                {{$admin['totalPasien']}}
               </div>
             </div>
           </div>
@@ -63,10 +63,14 @@
             </div>
             <div class="card-wrap">
               <div class="card-header">
-                <h4>Online Users</h4>
+                <h4>Total Antrian</h4>
               </div>
               <div class="card-body">
-                47
+                @if ($admin['antrian'] == null)
+                    0
+                @else
+                {{$admin['antrian']}}
+                @endif
               </div>
             </div>
           </div>
@@ -344,7 +348,7 @@
         <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4>Simple Table</h4>
+                <h4>Data pasien menunggu konfirmasi</h4>
               </div>
             <div class="card-body p-0">
               <div class="table-responsive">

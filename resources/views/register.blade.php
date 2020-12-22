@@ -77,7 +77,7 @@
                     </div>
                     <div class="col-md-4 form-group">
                         <input type="tel" class="form-control @error('nohp') is-invalid @enderror" name="nohp" id="nohp" value="{{old('nohp')}}" placeholder="Isi dengan nomor handphone pasien">
-                        @error('noktp')
+                        @error('nohp')
                             <div class="invalid-feedback">
                                 {{$message}}
                             </div>

@@ -24,6 +24,10 @@ class AntrianController extends Controller
         request()->validate([
             'noktp' => 'required|numeric',
             'user_id' => 'required'
+        ],[
+            'noktp.required' => 'No ktp wajib diisi dong',
+            'noktp.numeric' => 'Isinya pake angka dong, ini kan no ktp bukan no celana',
+            'user_id.required' => 'Pilih dokternya dong, kalo ngga mau diperiksa sama satpam?'
         ]);
 
         $cekPasien = Pasien::where('noktp',request()->noktp);
@@ -69,7 +73,7 @@ class AntrianController extends Controller
         $antrian = Antrian::find($id);
         $antrian->status = 'Diperiksa';
         $antrian->save();
-        return redirect(route('dashboard'));
+        return redirect(route('riwayat.pasien',$antrian->pasien_id));
     }
 
     public function lewati($id)

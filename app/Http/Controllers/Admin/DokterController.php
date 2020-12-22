@@ -45,7 +45,8 @@ class DokterController extends Controller
             'email' => $request->email,
             'jabatan' => $request->jabatan,
             'role' => 'dokter',
-            'foto' => $foto
+            'foto' => $foto,
+            'status' => 'Tutup'
         ]);
 
         return redirect(route('dokter'))->withSuccess('Data Berhasil Ditambahkan!');

@@ -34,8 +34,18 @@ class DashboardController extends Controller
         $antrianDilewati = Antrian::where([['user_id',$id],['status','Dilewati']])->paginate(10);
         $antrianAction = Antrian::where([['user_id',$id],['status','Dipanggil']])->orWhere([['user_id',$id],['status','Diperiksa']])->first();
         $antrianSelesai = Antrian::where([['user_id',$id],['status','Selesai']])->paginate(10);
+        $totalDokter = User::where('role','dokter')->count();
+        $totalStaff = User::where('role','staff')->count();
+        $totalPasien = Pasien::count();
+        $admin = [
+            'totalDokter' => $totalDokter, 
+            'totalPasien' => $totalPasien, 
+            'totalStaff' => $totalStaff,
+            'antrian' => $antrianAll->count()];
+            
 
-        return view('admin/dashboard', compact('antrianAll','antrianMenunggu','antrianDilewati','antrianAction','antrianSelesai','pasien'));  
+
+        return view('admin/dashboard', compact('antrianAll','antrianMenunggu','antrianDilewati','antrianAction','antrianSelesai','pasien','admin'));  
     }
 
     public function bukaPraktek()

@@ -96,6 +96,17 @@ class PasienController extends Controller
             'jenkel' => 'required',
             'alamat' => 'required|string',
             'nohp' => 'required|numeric',
+        ],[
+            'nama.required' => 'Namanya diisi dong, kalo ngga ntar mau dipanggil hey aja?',
+            'umur.required' => 'Umurnya diisi dong, kalo ngga ya gimana ya',
+            'umur.numeric' => 'Masa isi umur ga pake angka?',
+            'umur.max' => 'Maaf kami hanya menerima pasien dengan umur < 100',
+            'noktp.required' => 'No ktp wajib diisi dong',
+            'noktp.numeric' => 'Isinya pake angka dong, ini kan no ktp bukan no celana',
+            'jenkel.required' => 'Jenis kelaminnya dipilih dulu, ntar kami bingung dong heyy',
+            'alamat.required' => 'Alamatnya diisi dulu, ntar kami bingung dong heyy',
+            'nohp.required' => 'No hpnya diisi dulu, ntar kami bingung dong heyy',
+            'nohp.numeric' => 'Isi pake angka dong hey, ini nomer hp bukan nomer celana'
         ]);
         
         Pasien::Create([
