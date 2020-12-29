@@ -67,6 +67,10 @@ Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('staff/{user:id}/edit', 'Admin\StaffController@edit')->name('edit.staff');
     Route::patch('staff/{user:id}/edit', 'Admin\StaffController@update')->name('update.staff');
     Route::delete('staff/{user:id}/delete', 'Admin\StaffController@destroy')->name('delete.staff');
+
+    Route::get('export/dokter', 'Admin\DokterController@exportExcel')->name('export.dokter');
+    Route::get('export/staff', 'Admin\StaffController@exportExcel')->name('export.staff');
+    Route::get('export/pasien', 'PasienController@exportExcel')->name('export.pasien');
 });
 
 Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function () {
@@ -80,5 +84,6 @@ Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function (
     Route::get('pasien/{pasien:id}/riwayat', 'RiwayatController@index') ->name('riwayat.pasien');
     Route::get('pasien/riwayat/create/{pasien:id}', 'RiwayatController@create')->name('create.riwayat.pasien');
     Route::post('pasien/riwayat/store', 'RiwayatController@store')->name('store.riwayat.pasien');
+    Route::get('print/{pasien:id}', 'RiwayatController@print')->name('print.riwayat');
 });
 

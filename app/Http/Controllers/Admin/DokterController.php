@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\DokterExport;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DokterController extends Controller
 {
@@ -14,6 +16,11 @@ class DokterController extends Controller
     {
         $dokter = User::where('role','dokter')->paginate(5);
         return view('admin/dokter/list', compact('dokter'));
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new DokterExport, 'ListDokter.xlsx');
     }
 
     public function create()

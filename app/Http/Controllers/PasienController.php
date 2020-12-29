@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Exports\PasienExport;
 use Illuminate\Http\Request;
 use App\Pasien;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PasienController extends Controller
 {
@@ -18,11 +21,9 @@ class PasienController extends Controller
         return view('admin/pasien/list', compact('pasien'));
     }
 
-    public function search(Request $request)
+    public function exportExcel()
     {
-        
-        
-        return view('admin/pasien/list', compact('pasien'));
+        return Excel::download(new PasienExport, 'ListPasien.xlsx');
     }
 
     public function create()

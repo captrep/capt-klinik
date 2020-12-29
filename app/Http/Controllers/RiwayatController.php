@@ -36,4 +36,12 @@ class RiwayatController extends Controller
 
         return redirect(route('dashboard'))->withSuccess('Pasien selesai diperiksa');
     }
+
+    public function print($id)
+    {
+        $pasien = Pasien::where('id',$id)->first();
+        $riwayat = Riwayat::where('pasien_id',$id)->get();
+        return view('admin.pasien.print_riwayat',compact('riwayat','pasien'));
+    }
+
 }

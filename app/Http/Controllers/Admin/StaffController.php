@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\StaffExport;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StaffController extends Controller
 {
@@ -13,6 +15,11 @@ class StaffController extends Controller
     {
         $staff = User::where('role','staff')->paginate(5);
         return view('admin/staff/list', compact('staff'));
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new StaffExport, 'ListStaff.xlsx');
     }
 
     public function create()
