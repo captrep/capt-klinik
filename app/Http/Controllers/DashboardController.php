@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Antrian;
 use App\User;
 use App\Pasien;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -62,6 +63,15 @@ class DashboardController extends Controller
         $dokter->status = 'Tutup';
         $dokter->save();
         return redirect(route('dashboard'))->withSuccess('Praktek ditutup');
+    }
+
+    public function clearCache()
+    {
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+        Artisan::Call('view:clear');
+        return "dah beres";
     }
 
     

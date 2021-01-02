@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,9 @@ Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('export/dokter', 'Admin\DokterController@exportExcel')->name('export.dokter');
     Route::get('export/staff', 'Admin\StaffController@exportExcel')->name('export.staff');
     Route::get('export/pasien', 'PasienController@exportExcel')->name('export.pasien');
+
+    // clear cache
+    Route::get('clear','DashboardController@clearCache')->name('clear.cache');
 });
 
 Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function () {
