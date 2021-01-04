@@ -74,5 +74,11 @@ class DashboardController extends Controller
         return "dah beres";
     }
 
+    public function storageLink()
+    {
+        Artisan::call('storage:link');
+        return "sukses";
+    }
+
     
 }

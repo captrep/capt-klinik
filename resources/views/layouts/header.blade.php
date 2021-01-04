@@ -28,10 +28,10 @@
         <ul>
           <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('welcome')}}">Home</a></li>
           <li class="{{ request()->is('register') ? 'active' : '' }}"><a href="{{route('register.pasien')}}">Pendaftaran</a></li>
-          <li><a href="{{ request()->is('/') ? '#services' : '/#services' }}">Services</a></li>
-          <li><a href="{{ request()->is('/') ? '#doctors' : '/#doctors' }}">Doctors</a></li>
-          <li><a href="{{ request()->is('/') ? '#doctors' : '/#doctors' }}">Antrian</a></li>
-          <li><a href="{{ request()->is('/') ? '#contact' : '/#contact' }}">Contact</a></li>
+          <li><a href="{{ request()->is('/') ? '#services' : route('welcome') . '/#services' }}">Services</a></li>
+          <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Doctors</a></li>
+          <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Antrian</a></li>
+          <li><a href="{{ request()->is('/') ? '#contact' :  route('welcome') . '#contact' }}">Contact</a></li>
 
         </ul>
       </nav><!-- .nav-menu -->

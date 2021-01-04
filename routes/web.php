@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 use App\User;
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
 
     // clear cache
     Route::get('clear','DashboardController@clearCache')->name('clear.cache');
+    //Storage link
+    Route::get('storage','DashboardController@storageLink')->name('storage.link');
 });
 
 Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function () {
