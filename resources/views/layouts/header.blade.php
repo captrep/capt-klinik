@@ -20,14 +20,19 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo mr-auto"><a href="{{route('welcome')}}">Klinik</a></h1>
+      <h1 class="logo mr-auto"><a href="{{route('welcome')}}">CaptKlinik</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('welcome')}}">Home</a></li>
-          <li class="{{ request()->is('register') ? 'active' : '' }}"><a href="{{route('register.pasien')}}">Pendaftaran</a></li>
+          <li class="drop-down {{ request()->is('register') ? 'active' : '' }}"><a>Pendaftaran</a>
+            <ul>
+              <li><a href="{{route('register.pasien')}}">Daftar Pasien Baru</a></li>
+              <li><a href="#">Konfirmasi Pembayaran</a></li>
+            </ul>
+          </li>
           <li><a href="{{ request()->is('/') ? '#services' : route('welcome') . '/#services' }}">Services</a></li>
           <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Doctors</a></li>
           <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Antrian</a></li>

@@ -5,7 +5,7 @@
 @section('content')
 <section id="hero" class="d-flex align-items-center">
   <div class="container">
-    <h1>Welcome to Klinik</h1>
+    <h1>Welcome to CaptKlinik</h1>
     <h2>We are the best clinic in the town</h2>
   </div>
 </section><!-- End Hero -->
@@ -19,7 +19,7 @@
       <div class="row">
         <div class="col-lg-4 d-flex align-items-stretch">
           <div class="content">
-            <h3>Why Choose Medilab?</h3>
+            <h3>Why Choose CaptKlinik?</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
             </p>
@@ -191,9 +191,12 @@
                 <h4>{{$dr->name}}</h4>
                 <span>{{$dr->jabatan}}</span>
                 <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                <form action=""></form>
                 <a href="{{route('list.antrian',$dr->username)}}" class="btn btn-primary btn-block">Lihat antrian</a>
-                <a href="{{route('appointment')}}" class="btn btn-primary btn-block">Buat janji</a>
+                @if ($dr->status == 'Tutup')
+                  <button class="btn btn-danger btn-block" disabled>Praktek Tutup</button>
+                @else 
+                  <a href="{{route('appointment')}}" class="btn btn-primary btn-block">Buat janji</a>
+                @endif
               </div>
             </div>
           </div>

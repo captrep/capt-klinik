@@ -38,7 +38,6 @@ class PasienExport implements FromCollection,WithHeadings,ShouldAutoSize,WithMap
                         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                     ]
                 ]);
-               
             }
         ];
     }

@@ -33,13 +33,10 @@
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
       
-    @yield('header')
-
+      @yield('header')
       @yield('sidebar')
-
       <!-- Main Content -->
       @yield('content')
-
       @yield('footer')
     </div>
   </div>
