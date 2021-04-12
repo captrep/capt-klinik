@@ -42,6 +42,12 @@ class PasienController extends Controller
             'nohp' => 'required|numeric',
             'status' => 'required',
         ]);
+        
+        $checkData = Pasien::where('notkp',$request()->noktp);
+        dd($checkData);
+        if (request()->noktp) {
+            # code...
+        }
 
         Pasien::Create([
             'nama' => $request->nama,
@@ -109,19 +115,23 @@ class PasienController extends Controller
             'nohp.required' => 'No hpnya diisi dulu, ntar kami bingung dong heyy',
             'nohp.numeric' => 'Isi pake angka dong hey, ini nomer hp bukan nomer celana'
         ]);
-        
-        Pasien::Create([
-            'nama' => $request->nama,
-            'umur' => $request->umur,
-            'noktp' => $request->noktp,
-            'jenkel' => $request->jenkel,
-            'alamat' => $request->alamat,
-            'nohp' => $request->nohp,
-            'status' => 'Belum Aktif',
-        ]);
-        
-        session()->flash('success');
-        return redirect(route('register.pasien'))->withSuccess('Data Berhasil Diubah!');
+
+        $checkData = Pasien::where('noktp',$request->noktp)->first();
+        if ($checkData == TRUE) {
+            session()->flash('duplicate');
+        }else{
+            Pasien::Create([
+                'nama' => $request->nama,
+                'umur' => $request->umur,
+                'noktp' => $request->noktp,
+                'jenkel' => $request->jenkel,
+                'alamat' => $request->alamat,
+                'nohp' => $request->nohp,
+                'status' => 'Belum Aktif',
+            ]);
+            session()->flash('success');
+        }
+        return redirect(route('register.pasien'));
     }
 
     public function konfirmasi($pasien)

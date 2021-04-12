@@ -27,6 +27,10 @@
             <h4 class="alert-heading">Pendaftaran berhasil dilakukan!</h4>
             <p>Silahkan melakukan pembayaran pendaftaran sebesar Rp. 5.000 melalui staff administrasi agar status pasien menjadi aktif dan dapat membuat antrian</p>
           </div>
+          @elseif (session()->has('duplicate'))
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Pasien telah terdaftar!</h4>
+          </div>
           @endif
 
         <div class="section-title">
