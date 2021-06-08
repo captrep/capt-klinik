@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Exports\PasienExport;
 use Illuminate\Http\Request;
 use App\Pasien;
+use App\Testimonial;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PasienController extends Controller
@@ -140,5 +141,41 @@ class PasienController extends Controller
         $pasien->status = 'Aktif';
         $pasien->save();
         return redirect(route('dashboard'))->withSuccess('Pasien berhasil dikonfirmasi');
+    }
+
+    public function testimonial()
+    {
+        return view('testimonial');
+    }
+
+    public function storeTestimonial(Request $request)
+    {
+        request()->validate([
+            'noktp' => 'required|numeric',
+            'testi' => 'required|string|max:200',
+        ],[
+            'noktp.required' => 'No ktp wajib diisi dong',
+            'noktp.numeric' => 'Isinya pake angka dong, ini kan no ktp bukan no celana',
+            'testi.required' => 'Isi testimonialnya dong kalo ngga apa yg mau ditampilin yakan',
+            'testi.string' => 'Isi testimonial menggunakan huruf dan angka',
+            'testi.max' => 'Jangan melebihi 200 karakter',
+        ]);
+        $checkPasien = Pasien::where('noktp',$request->noktp)->first();
+        if ($checkPasien == TRUE) {
+            $getIdPasien = Pasien::where('noktp',$request->noktp)->pluck('id')->first();
+            $checkData = Testimonial::where('pasien_id',$getIdPasien)->first();
+            if ($checkData == TRUE) {
+                session()->flash('duplicate');
+            }else{
+                Testimonial::Create([
+                    'pasien_id' => $getIdPasien,
+                    'testi' => $request->testi,
+                ]);
+                session()->flash('success');
+            }
+        }else{
+            session()->flash('notregist');
+        }
+        return redirect(route('isi.testimonial'));
     }
 }

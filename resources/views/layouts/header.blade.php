@@ -35,7 +35,10 @@
           </li>
           <li><a href="{{ request()->is('/') ? '#services' : route('welcome') . '/#services' }}">Services</a></li>
           <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Doctors</a></li>
-          <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Antrian</a></li>
+          <li><a href="{{ request()->is('/') ? '#testimonials' : route('welcome') . '/#testimonials' }}">Testimonials</a></li>
+          <li class="{{request()->is('testimonial') ? 'active' : ''}}">
+            <a href="{{route('isi.testimonial')}}">Isi testimonial</a>
+          </li>
           <li><a href="{{ request()->is('/') ? '#contact' :  route('welcome') . '#contact' }}">Contact</a></li>
 
         </ul>

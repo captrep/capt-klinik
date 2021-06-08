@@ -16,4 +16,9 @@ class Pasien extends Model
         return $this->hasMany(Riwayat::class);
     }
 
+    public function testimonial()
+    {
+        return $this->hasOne(Testimonial::class);
+    }
+
 }

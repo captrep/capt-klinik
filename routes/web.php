@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
 use App\User;
+use App\Testimonial;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +18,15 @@ use App\User;
 
 Route::get('/', function () {
     $dokter = User::where('role','dokter')->get();
-    return view('welcome',compact('dokter'));
+    $testimonial = Testimonial::all();
+    return view('welcome',compact('dokter','testimonial'));
 }) ->name('welcome');
 
 // register calon pasien (user side)
 Route::get('register', 'PasienController@register')->name('register.pasien');
 Route::post('register/store', 'PasienController@storelanding')->name('storelanding.pasien');
+Route::get('testimonial', 'PasienController@testimonial')->name('isi.testimonial');
+ROute::post('testimonial/store', 'PasienController@storeTestimonial')->name('store.testimonial');
 
 // buat antrian (pasien)
 Route::get('appointment', function(){
@@ -30,6 +34,7 @@ Route::get('appointment', function(){
     return view('appointment',compact('dokter'));
 })->name('appointment');
 Route::post('appointment/store', 'AntrianController@store')->name('store.antrian');
+
 
 // antrian (pasien)
 Route::get('antrian/{user:username}', 'AntrianController@index')->name('list.antrian');

@@ -7,10 +7,10 @@
 <div class="main-content">
     <section class="section">
       <div class="section-header">
-        <h1>Dokter Page</h1>
+        <h1>Staff Page</h1>
       </div>
       <div class="section-body">
-        <h2 class="section-title">Edit Data Dokter</h2>
+        <h2 class="section-title">Edit Data Staff</h2>
         <p class="section-lead">Edit data dengan benar</p>
         <div class="row">
                 <div class="col-md-12">
@@ -23,7 +23,7 @@
                             @method('patch')
                             @csrf 
                         <div class="form-group">
-                          <label>Nama Lengkap Dokter</label>
+                          <label>Nama Lengkap Staff</label>
                           <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name') ?? $user->name}}">
                           @error('name')
                             <div class="invalid-feedback">
@@ -69,7 +69,7 @@
                           </div>
                         </div>
                         </div>
-                        <button type="submit" class="btn btn-block btn-primary">Ubah Data Dokter</button>
+                        <button type="submit" class="btn btn-block btn-primary">Ubah Data Staff</button>
                     </form>
                       </div>
                   </div>
