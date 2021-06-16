@@ -36,6 +36,9 @@
               <li class="{{ request()->is('pasien/create') ? 'active' : ''}}"><a class="nav-link" href="{{route('create.pasien')}}">Tambah Data Pasien</a></li>
             </ul>
         </li>
+        <li class="dropdown {{ request()->is('testimonial') ? 'active' : ''}}">
+          <a href="{{route('list.testimonial')}}" class="nav-link"><i class="far fa-user"></i><span>Data Testimonial</span></a>
+        </li>
         @if (auth()->user()->role == 'admin')
         <li class="menu-header">Export Excel</li>
         <li class="dropdown">

@@ -40,6 +40,7 @@
                       <th>Jenis Kelamin</th>
                       <th>Handphone</th>
                       <th>Status</th>
+                      <th>Bukti Transfer</th>
                       <th>Action</th>
                     </tr>
                     @foreach ($pasien as $key => $pas)
@@ -55,6 +56,11 @@
                       @else 
                         <td><div class="badge badge-warning">{{$pas->status}}</div></td> 
                       @endif
+                      <td>
+                        <div class="gallery">
+                          <div class="gallery-item" data-image="{{asset('storage/' . $pas->buktitrf)}}" data-title="Bukti transfer dari {{$pas->nama}}"></div>
+                        </div>
+                      </td>
                       <td>
                         @if (Auth::user()->role == 'dokter')
                         <a href="{{route('riwayat.pasien',$pas->id)}}" class="btn btn-icon icon-left btn-primary"><i class="far fa-history"></i>Lihat Riwayat</a>
@@ -90,6 +96,12 @@
 </div>
 @endsection
 
+@push('spesific-js')
+<script src="{{ asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
+@endpush
+@push('css-libraries')
+<link rel="stylesheet" href="{{ asset('admin/assets/modules/chocolat/dist/css/chocolat.css') }}">
+@endpush
 @push('after-script')
   <script>
     $(".alert-confirm").click(function(e) {

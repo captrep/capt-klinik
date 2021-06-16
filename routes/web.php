@@ -22,11 +22,13 @@ Route::get('/', function () {
     return view('welcome',compact('dokter','testimonial'));
 }) ->name('welcome');
 
-// register calon pasien (user side)
+// welcome
 Route::get('register', 'PasienController@register')->name('register.pasien');
 Route::post('register/store', 'PasienController@storelanding')->name('storelanding.pasien');
-Route::get('testimonial', 'PasienController@testimonial')->name('isi.testimonial');
-ROute::post('testimonial/store', 'PasienController@storeTestimonial')->name('store.testimonial');
+Route::get('isitestimonial', 'PasienController@testimonial')->name('isi.testimonial');
+Route::get('register/konfirmasi', 'PasienController@konfirmasiBayar')->name('konfirmasi.bayar');
+Route::post('register/konfirmasi/store', 'PasienController@storeKonfirmasiBayar')->name('store.konfirmasiBayar');
+Route::post('testimonial/store', 'PasienController@storeTestimonial')->name('store.testimonial');
 
 // buat antrian (pasien)
 Route::get('appointment', function(){
@@ -78,14 +80,10 @@ Route::group(['middleware' => ['auth', 'cekrole:admin']], function () {
     Route::get('export/dokter', 'Admin\DokterController@exportExcel')->name('export.dokter');
     Route::get('export/staff', 'Admin\StaffController@exportExcel')->name('export.staff');
     Route::get('export/pasien', 'PasienController@exportExcel')->name('export.pasien');
-
-    // clear cache
-    Route::get('clear','DashboardController@clearCache')->name('clear.cache');
-    //Storage link
-    Route::get('storage','DashboardController@storageLink')->name('storage.link');
 });
 
 Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function () {
+    // pasien
     Route::get('pasien', 'PasienController@index')->name('pasien');
     Route::get('pasien/create', 'PasienController@create')->name('create.pasien');
     Route::post('pasien/store', 'PasienController@store')->name('store.pasien');
@@ -97,5 +95,9 @@ Route::group(['middleware' => ['auth','cekrole:admin,staff,dokter']], function (
     Route::get('pasien/riwayat/create/{pasien:id}', 'RiwayatController@create')->name('create.riwayat.pasien');
     Route::post('pasien/riwayat/store', 'RiwayatController@store')->name('store.riwayat.pasien');
     Route::get('print/{pasien:id}', 'RiwayatController@print')->name('print.riwayat');
+
+    // testimonial
+    Route::get('testimonial','PasienController@listTestimonial')->name('list.testimonial');
+    Route::delete('testimonial/{testimonials:id}/delete', 'PasienController@destroyTestimonial')->name('delete.testimonial');
 });
 

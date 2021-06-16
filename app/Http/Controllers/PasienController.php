@@ -148,6 +148,18 @@ class PasienController extends Controller
         return view('testimonial');
     }
 
+    public function listTestimonial(Testimonial $testimonial)
+    {
+        $testimonial = Testimonial::orderBy('created_at','DESC')->paginate(5);
+        return view('admin/testimonial/list', compact('testimonial'));
+    }
+
+    public function destroyTestimonial($id)
+    {
+        Testimonial::where('id',$id)->delete();
+        return redirect()->back()->withSuccess('Data Berhasil Dihapus!');
+    }
+
     public function storeTestimonial(Request $request)
     {
         request()->validate([
@@ -164,8 +176,11 @@ class PasienController extends Controller
         if ($checkPasien == TRUE) {
             $getIdPasien = Pasien::where('noktp',$request->noktp)->pluck('id')->first();
             $checkData = Testimonial::where('pasien_id',$getIdPasien)->first();
+            $pasien = Pasien::find($getIdPasien);
             if ($checkData == TRUE) {
                 session()->flash('duplicate');
+            }elseif ($pasien->status == 'Belum Aktif') {
+                session()->flash('inactive');
             }else{
                 Testimonial::Create([
                     'pasien_id' => $getIdPasien,
@@ -177,5 +192,41 @@ class PasienController extends Controller
             session()->flash('notregist');
         }
         return redirect(route('isi.testimonial'));
+    }
+
+    public function konfirmasiBayar()
+    {
+        return view('konfirmasiBayar');
+    }
+
+    public function storeKonfirmasiBayar(Request $request)
+    {
+        request()->validate([
+            'noktp' => 'required|numeric',
+            'foto' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
+        ],[
+            'noktp.required' => 'No ktp wajib diisi dong',
+            'noktp.numeric' => 'Isinya pake angka dong, ini kan no ktp bukan no celana',
+            'foto.image' => 'Uploadnya harus gambar dong (format :jpg/png/jpeg)',
+            'foto.max' => 'Size gambarnya kegedean nih, pake gambar dibawah 2mb aja yaa',
+        ]);
+        $checkPasien = Pasien::where('noktp',$request->noktp)->first();
+        if ($checkPasien == TRUE) {
+            $getIdPasien = Pasien::where('noktp',$request->noktp)->pluck('id')->first();
+            $pasien = Pasien::find($getIdPasien);
+            if ($pasien->status == 'Aktif'){
+                session()->flash('confirmed');
+            }elseif ($pasien->buktitrf != NULL) {
+                session()->flash('duplicate');
+            }else{
+                $storeFoto = request()->file('foto')->store("images/buktitrf");
+                $pasien->buktitrf = $storeFoto; 
+                $pasien->save();
+                session()->flash('success');
+            }
+        }else{
+            session()->flash('notregist');
+        }
+        return redirect(route('konfirmasi.bayar'));
     }
 }

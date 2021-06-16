@@ -13,7 +13,7 @@
   <link href="{{asset('admin/assets/img/Capt-Black.jpg')}}" rel="icon">
 
   <!-- CSS Libraries -->
-
+  @stack('css-libraries')
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">

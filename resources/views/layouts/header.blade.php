@@ -30,7 +30,7 @@
           <li class="drop-down {{ request()->is('register') ? 'active' : '' }}"><a>Pendaftaran</a>
             <ul>
               <li><a href="{{route('register.pasien')}}">Daftar Pasien Baru</a></li>
-              <li><a href="#">Konfirmasi Pembayaran</a></li>
+              <li><a href="{{route('konfirmasi.bayar')}}">Konfirmasi Pembayaran</a></li>
             </ul>
           </li>
           <li><a href="{{ request()->is('/') ? '#services' : route('welcome') . '/#services' }}">Services</a></li>
