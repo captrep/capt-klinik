@@ -27,7 +27,7 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{route('welcome')}}">Home</a></li>
-          <li class="drop-down {{ request()->is('register') ? 'active' : '' }}"><a>Pendaftaran</a>
+          <li class="drop-down {{ request()->is('register') || request()->is('register/konfirmasi') ? 'active' : '' }}"><a>Pendaftaran</a>
             <ul>
               <li><a href="{{route('register.pasien')}}">Daftar Pasien Baru</a></li>
               <li><a href="{{route('konfirmasi.bayar')}}">Konfirmasi Pembayaran</a></li>
@@ -36,7 +36,7 @@
           <li><a href="{{ request()->is('/') ? '#services' : route('welcome') . '/#services' }}">Services</a></li>
           <li><a href="{{ request()->is('/') ? '#doctors' : route('welcome') . '/#doctors' }}">Doctors</a></li>
           <li><a href="{{ request()->is('/') ? '#testimonials' : route('welcome') . '/#testimonials' }}">Testimonials</a></li>
-          <li class="{{request()->is('testimonial') ? 'active' : ''}}">
+          <li class="{{request()->is('isitestimonial') ? 'active' : ''}}">
             <a href="{{route('isi.testimonial')}}">Isi testimonial</a>
           </li>
           <li><a href="{{ request()->is('/') ? '#contact' :  route('welcome') . '#contact' }}">Contact</a></li>
